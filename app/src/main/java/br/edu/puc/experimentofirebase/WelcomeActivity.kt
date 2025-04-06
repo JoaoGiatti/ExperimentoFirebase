@@ -1,5 +1,6 @@
 package br.edu.puc.experimentofirebase
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import br.edu.puc.experimentofirebase.ui.theme.ExperimentoFirebaseTheme
 import com.google.firebase.FirebaseApp
@@ -61,6 +63,7 @@ fun ExperimentoApp(db: FirebaseFirestore){
 
 @Composable
 fun WelcomePage(db: FirebaseFirestore, modifier: Modifier = Modifier){
+    val context = LocalContext.current //Activity que está rodando no momento
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -68,29 +71,29 @@ fun WelcomePage(db: FirebaseFirestore, modifier: Modifier = Modifier){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment =   Alignment.CenterHorizontally
     ){
-        Text("Bem-vindo ao programa experimental Firebase")
+        Text("Um modo inovador de fazer login sem usar senhas.")
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
             onClick = {
-
+            context.startActivity(Intent(context, SignInActivity::class.java))
             },
             modifier = Modifier.fillMaxWidth()
 
 
         ) {
-            Text("Faça seu cadastro")
+            Text("Entrar na conta")
         }
 
 
         Button(
             onClick = {
-
+                context.startActivity(Intent(context, SignUpActivity::class.java))
             },
             modifier = Modifier.fillMaxWidth()
         ){
-            Text("Entrar")
+            Text("Registrar")
         }
     }
 }
